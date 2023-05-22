@@ -6,7 +6,19 @@ import { getActiveTabURL } from "./utils.js";
 
 const addNewBookmark = () => {};
 
-const viewBookmarks = () => {};
+const viewBookmarks = (currentBookmarks=[]) => {
+    const bookmarksElement = document.getElementById("bookmarks");
+    bookmarksElement.innerHTML = "";
+
+    if(currentBookamrks.length > 0){
+        for(let i = 0; i < currentBookmarks.length; i++){
+            const bookmark = currentBookmarks[i];
+            addNewBookmark(bookmark, bookmarksElement)
+        }
+    }else{
+        bookmarksElement.innerHTML = '<i class="row">No bookmarks yet</i>';
+    }
+};
 
 const onPlay = e => {};
 
@@ -25,8 +37,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         chrome.storage.sync.get([currentVideo], (data) => {
             const currentVideoBookmarks = data[currentVideo] ? JSON.parse(data[currentVideo]) : [];
 
-            //viewBookmarks
-
+            viewBookmarks(currentVideoBookmarks);
 
         })
     }else{
